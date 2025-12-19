@@ -2,7 +2,7 @@
 
 An ongoing research project that uses computational methods to inductively identify and catalog recurrent visual symbols in alt-right TikTok "corecore" edits.
 
-**Explore the initial data at:** [cillustrisimo.github.io/sublime_symbols](cillustrisimo.github.io/sublime_symbols)
+**Explore the initial data at:** [https://cillustrisimo.github.io/sublime_symbols/](https://cillustrisimo.github.io/sublime_symbols/s)
 
 ---
 
