@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sublime Symbols</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <!-- LANDING PAGE -->
+    <section class="landing" id="landing">
+        <div class="landing-content">
+            <h1>Sublime Symbols</h1>
+            <p class="landing-subtitle">
+                Surfacing White Thymos in Alt-Right Corecore Edits
+            </p>
+            
+            <div class="landing-rows">
+                <!-- What Is This -->
+                <div class="landing-row">
+                    <div class="row-icon">01</div>
+                    <div class="row-content">
+                        <h3>What Is This?</h3>
+                        <p>
+                            This visualization explores recurrent visual symbols in alt-right TikTok "corecore" edits—
+                            hyperaestheticized video montages that mobilize affect through carefully assembled imagery. 
+                            Drawing on Bharath Ganesh's concept of <strong>"white thymos"</strong> (symbols that beget 
+                            white supremacist affects), this project uses computational methods to inductively identify 
+                            and catalog the visual signs that distinguish alt-right corecore from its mainstream counterparts.
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            Clusters are generated using CLIP embeddings and HDBSCAN, then annotated through a interpretation of a
+                            <strong>Peircean semiotic framework</strong>: <strong>Text</strong> (image captions as object), 
+                            <strong>Interpretant</strong> (audience comments revealing affect/meaning), and 
+                            <strong>Sign</strong>(the composite images for each cluster). I also add audio info under
+                            <strong>Genre</strong> (music descriptors). All items are derived using log-odds ratios to surface 
+                            cluster-distinctive terms.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- How To Use -->
+                <div class="landing-row">
+                    <div class="row-icon">02</div>
+                    <div class="row-content">
+                        <h3>How To Use</h3>
+                        <p>
+                            <strong>Browse:</strong> Scroll through cluster cards showing representative frames. These composites are the "symbols." 
+                            Use the <em>Selected Results</em> tab for curated findings or <em>All Results</em> to explore everything.<br><br>
+                            <strong>Click:</strong> Select any cluster to open a detailed view with the composite image, 
+                            representative audio, and the full range of frames from most typical to most atypical. These frames are calculated
+                            via Euclidean distance from the order-centroid frame, and occupy the 10th, 25th, and nth percentiles.<br><br>
+                            <strong>Listen and View:</strong> Each cluster has representative audio from the video most central to that cluster. 
+                            Click images to enlarge them.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Warning -->
+                <div class="landing-row warning-row">
+                    <div class="row-icon">!!</div>
+                    <div class="row-content">
+                        <h3>Content Warning & Notes</h3>
+                        <p>
+                            <strong>Offensive Content:</strong> This research analyzes alt-right propaganda. 
+                            Images, audio, and text may include racist, sexist, antisemitic, and otherwise hateful or 
+                            disturbing material. Viewer discretion is strongly advised.<br><br>
+                            <strong>Work in Progress:</strong> This is an ongoing research project. Clusters may contain noise, and interpretations are preliminary.<br><br>
+                            <strong>Limited Sample:</strong> Current analysis is based on approximately 900 videos scraped 
+                            from alt-right-associated hashtags (hyperborea, agartha, vril, "another X classic"). 
+                            Findings represent patterns within this specific dataset, and may change with larger samples.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="enter-btn" onclick="enterApp()">I Understand — Explore Signs</button>
+        </div>
+    </section>
+    
+    <!-- MAIN APP -->
+    <section class="app" id="app">
+        <header>
+            <div class="header-top">
+                <div class="header-left">
+                    <button class="home-btn" onclick="showLanding()" title="Back to Home">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    </button>
+                    <h1 class="header-title" onclick="showLanding()">Sublime Symbols</h1>
+                </div>
+                </div>
+                <div class="stats-bar">
+                    <div class="stat"><span>Total Clusters:</span><span class="stat-value" id="total-clusters">--</span></div>
+                    <div class="stat"><span>Total Frames:</span><span class="stat-value" id="total-frames">--</span></div>
+                </div>
+            </div>
+            <div class="tabs">
+                <button class="tab active" data-tab="selected" onclick="switchTab('selected')">
+                    Selected Results<span class="tab-count" id="selected-count">(0)</span>
+                </button>
+                <button class="tab" data-tab="all" onclick="switchTab('all')">
+                    All Results<span class="tab-count" id="all-count">(0)</span>
+                </button>
+                <a class="tab github-tab" href="https://github.com/cillustrisimo/sublime_symbols" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 6px;">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="margin-left: 4px; opacity: 0.7;">
+                        <path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <main>
+            <!-- Tab descriptions -->
+            <div class="tab-description" id="tab-description">
+                <p id="selected-description" class="description-text">Curated clusters that have been qualitatively evaluated and labeled.</p>
+                <p id="all-description" class="description-text" style="display: none;">All clusters from initial analysis on ~900 alt-right TikToks. Ordered by cluster size. May contain noise, offensive imagery, etc.</p>
+            </div>
+            
+            <div class="loading" id="loading"><div class="spinner"></div><p>Loading cluster data...</p></div>
+            <div class="cluster-grid" id="cluster-grid"></div>
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <h3>No selected clusters yet</h3>
+            </div>
+        </main>
+    </section>
+    
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close">&times;</button>
+            
+            <div class="modal-header">
+                <img class="modal-composite" id="modal-composite" src="" alt="Cluster composite" onclick="openLightbox(this.src)">
+                <div class="modal-header-info">
+                    <h2 class="modal-title">Sign <span id="modal-cluster-id">--</span></h2>
+                    <div class="modal-stats">
+                        <span><strong id="modal-size">--</strong> frames</span>
+                        <span>Mean distance: <strong id="modal-mean-dist">--</strong></span>
+                        <span>Spread: <strong id="modal-spread">--</strong></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal Tabs -->
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-modal-tab="overview" onclick="switchModalTab('overview')">Overview</button>
+                <button class="modal-tab" data-modal-tab="all-images" onclick="switchModalTab('all-images')">All Images</button>
+            </div>
+            
+            <!-- Tab Content: Overview -->
+            <div class="modal-tab-content active" id="modal-tab-overview">
+                <div class="modal-body">
+                    <div class="modal-section analysis-section" id="analysis-section" style="display: none;">
+                        <div class="section-title">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                            Qualitative Analysis
+                        </div>
+                        <div class="analysis-label">Interpretation</div>
+                        <div class="analysis-title" id="analysis-title"></div>
+                        <div class="analysis-text" id="analysis-text"></div>
+                        <div id="analysis-themes-container">
+                            <div class="analysis-label">Key Themes</div>
+                            <div class="analysis-themes" id="analysis-themes"></div>
+                        </div>
+                        <div id="analysis-notes-container" style="display: none;">
+                            <div class="analysis-label">Additional Notes</div>
+                            <div class="analysis-text" id="analysis-notes"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section audio-section">
+                        <div class="section-title">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                            Representative Audio
+                        </div>
+                        <div class="audio-player" id="audio-container">
+                            <audio controls id="audio-player"><source src="" type="audio/mpeg"></audio>
+                            <p class="audio-source" id="audio-source"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <div class="section-title">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+                            Sign Range (Eucldiean Distance from Centroid)
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1rem;">Click any image to enlarge</p>
+                        <div class="range-grid" id="range-grid"></div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <div class="section-title">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                            Sign Descriptors
+                        </div>
+                        <div class="keywords-grid">
+                            <div class="keyword-group">
+                                <div class="keyword-group-title">Image Keywords (Object)</div>
+                                <div class="keyword-text" id="modal-keywords">--</div>
+                            </div>
+                            <div class="keyword-group">
+                                <div class="keyword-group-title">Comment Keywords (Interpretant)</div>
+                                <div class="keyword-text" id="modal-comments">--</div>
+                            </div>
+                            <div class="keyword-group" style="grid-column: span 2;">
+                                <div class="keyword-group-title">Music Description (Genre)</div>
+                                <div class="keyword-text" id="modal-genre">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab Content: All Images -->
+            <div class="modal-tab-content" id="modal-tab-all-images">
+                <div class="modal-body">
+                    <div class="modal-section">
+                        <div class="section-title">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+                            All Cluster Images
+                        </div>
+                        <p class="all-images-count" id="all-images-count">-- images</p>
+                        <div class="all-images-sort">
+                            <label>Sort by:</label>
+                            <select id="all-images-sort" onchange="renderAllImages()">
+                                <option value="distance-asc">Distance (typical to atypical)</option>
+                                <option value="distance-desc">Distance (atypical to typical)</option>
+                            </select>
+                        </div>
+                        <div class="all-images-grid" id="all-images-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-close">&times;</div>
+        <img id="lightbox-img" src="" alt="Enlarged image">
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
