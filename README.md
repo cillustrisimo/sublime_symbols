@@ -2,7 +2,7 @@
 
 An ongoing research project that uses computational methods to inductively identify and catalog recurrent visual symbols in alt-right TikTok "corecore" edits.
 
-**Explore the initial data at:** [cillustrisimo.github.io/sublime_symbols]
+**Explore the initial data at:** [cillustrisimo.github.io/sublime_symbols](cillustrisimo.github.io/sublime_symbols)
 
 ---
 
@@ -55,6 +55,10 @@ The pipeline is inspired by the **Peircean triadic model of semiotics**, which u
 - **Interpretant** — the meaning/effect produced (audience comments)
 
 ### Pipeline Overview
+
+<p align="center">
+  <img src="pipeline.png" alt="Pipeline Overview" width="800">
+</p>
 
 1. **Video Data Extraction**
    - Extract frames (1 fps) using OpenCV2
